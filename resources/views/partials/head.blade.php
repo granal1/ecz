@@ -1,0 +1,7 @@
+    <title>JS Form</title>
+    <meta name="description" content='JS-форма в зависимости от типа'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/w3.css">
+    <script src="/js/jquery4.js"></script>
+    
