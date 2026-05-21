@@ -74,4 +74,5 @@
     <script src="/js/plotly3.js"></script>
     <script src="/js/plotly-bar-chart.js"></script>
     <script src="/js/plotly-pie-chart.js"></script>
+    <script src="/js/visiteurs-register.js"></script>
 @endpush

@@ -35,3 +35,7 @@
         </p>
     </section>
 @endsection
+
+@push('scripts')
+    <script src="/js/visiteurs-register.js"></script>
+@endpush

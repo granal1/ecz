@@ -111,4 +111,5 @@ $(document).ready(function () {
 @push('scripts')
     <script src="/js/jquery.js"></script>
     <script src="/js/form.js"></script>
+    <script src="/js/visiteurs-register.js"></script>
 @endpush
