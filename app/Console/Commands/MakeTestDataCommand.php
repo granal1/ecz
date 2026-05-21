@@ -29,7 +29,7 @@ class MakeTestDataCommand extends Command
     {
         // Начальные и возможные данные
         $ip = rand(1, 255).'.'.rand(1, 255).'.'.rand(1, 255).'.'.rand(1, 255);
-        $time = now()->subDays(50)->subMinutes(rand(0, 1440)); // Начальное время
+        $time = now()->subDays(5)->subMinutes(rand(0, 1440)); // Начальное время
 
         $cities = [
             'Москва', 'Санкт-Петербург', 'Казань', 'Новосибирск',
@@ -50,7 +50,7 @@ class MakeTestDataCommand extends Command
             'type' => $deviceType
         ]);
 
-        for ($i = 1; $i <= 10000; $i++) {
+        for ($i = 1; $i <= 1000; $i++) {
 
             // Имитация уникальности посетителя (1 из 5 случаев)
             if (rand(1, 5) === 3) {
@@ -81,7 +81,7 @@ class MakeTestDataCommand extends Command
             Visiteur::create($visiteurData);
         }
 
-        $this->info('В БД добавлено 10000 новых записей');
+        $this->info('В БД добавлено 1000 новых записей');
 
         return self::SUCCESS;
     }

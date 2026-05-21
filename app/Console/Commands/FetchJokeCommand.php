@@ -13,17 +13,11 @@ class FetchJokeCommand extends Command
 
     public function handle()
     {
-        echo "1. Начинаем выполнение команды\n";
-
         try {
-            echo "2. Начали блок try\n";
-
             $response = Http::timeout(10)->get('https://official-joke-api.appspot.com/random_joke');
-            echo "3. Получили ответ от API\n";
 
             if ($response->successful()) {
                 $jokeData = $response->json();
-                echo "4. Получили шутку типа: " . $jokeData['type'] . "\n";
 
                 DB::table('jokes')->updateOrInsert(
                     [
@@ -37,7 +31,6 @@ class FetchJokeCommand extends Command
                     ]
                 );
 
-                echo "5. Шутка сохранена в базу данных\n";
                 return 0;
             } else {
                 echo "Ошибка: статус " . $response->status() . "\n";
