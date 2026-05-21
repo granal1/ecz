@@ -12,7 +12,7 @@
             <p class="w3-large"><i>
                     Необходимо написать js код, который в зависимости от выбранного значения поля
                     Тип отражает разный набор полей на странице 
-                    <a href="http://test.amopoint-dev.ru/testzz/testlist.html" target="_blank">http://test.amopoint-dev.ru/testzz/testlist.html</a><br>
+                    <a href="http://test.amopoint-dev.ru/testzz/testlist.html" target="_blank"><b>http://test.amopoint-dev.ru/testzz/testlist.html</b></a><br>
                     Должны отображаться только те поля в атрибуте name которых есть
                     значение выбранного элемента списка. <br>
                     Решение должно представлять из себя файл для подключения к странице,

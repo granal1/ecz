@@ -31,7 +31,7 @@
         </p>
         <p>
             Route, отдающий массив записей таблицы в формате json срабатывает по url:
-            <a href="/api/v1/jokes" target="_blank">"/api/v1/jokes"</a>
+            <a href="/api/v1/jokes" target="_blank"><b>"/api/v1/jokes"</b></a>
         </p>
     </section>
 @endsection

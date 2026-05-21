@@ -8,7 +8,7 @@
 <body>
     @include('partials.nav')
     @yield('content')
-    @include('partials.footer')
+    {{-- @include('partials.footer') --}}
     @stack('scripts')
 </body>
 

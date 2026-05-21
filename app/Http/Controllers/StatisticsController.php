@@ -10,6 +10,8 @@ final class StatisticsController extends Controller
     public function index()
     {
         $data = [];
+        $barData = [];
+        $pieData = [];
         $data = Visiteur::all(['ip', 'city', 'device', 'timestamp']);
 
         // Формирование данных для bar-графика посещений по часам:
