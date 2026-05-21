@@ -1,4 +1,4 @@
-    <title>JS Form</title>
+    <title>{{ $activeMenu }}</title>
     <meta name="description" content='JS-форма в зависимости от типа'>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
