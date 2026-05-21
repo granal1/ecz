@@ -19,7 +19,7 @@ final class StatisticsController extends Controller
             return $item->timestamp->hour;
         })->sortKeys()->map(function ($hourGroup) {
             return $hourGroup->unique(function ($item) {
-                return $item->ip . '_' . $item->city . '_' . $item->device;
+                return $item->ip . '_' . $item->city . '_' . json_encode([$item->device]);
             });
         });
 
@@ -33,7 +33,7 @@ final class StatisticsController extends Controller
             return $item->city;
         })->sortKeys()->map(function ($cityGroup) {
             return $cityGroup->unique(function ($item) {
-                return $item->ip . '_' . $item->device;
+                return $item->ip . '_' . json_encode([$item->device]);
             });
         });
 
