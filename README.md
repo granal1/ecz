@@ -1,58 +1,220 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel-проект с демонстрацией решений задач
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Этот проект представляет собой сборку решений для различных задач, полученных от заказчика. Каждая функция демонстрирует реализацию конкретного технического задания. Проект не имеет коммерческого названия и служит исключительно для демонстрации навыков и подходов к решению задач.
 
-## About Laravel
+## Содержание
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Реализованные задачи](#реализованные-задачи)
+- [Технологии](#технологии)
+- [Установка](#установка)
+- [Использование](#использование)
+- [Структура проекта](#структура-проекта)
+- [Лицензия](#лицензия)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Реализованные задачи
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Интеграция с API
 
-## Learning Laravel
+Решение задачи, цитируемой из проекта:
+> Напишите Laravel проект, в состав которого обязательно входит​
+> 1. Консольная команда, которая каждые 5 минут получает информацию от
+>    любого API на ваш выбор и сохраняет её в таблицу БД​
+> 2. Route, отдающий массив записей таблицы в формате json
+>    Например: https://official-joke-api.appspot.com/random_joke
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Реализация**:
+- **Консольная команда**: `php artisan fetch:joke` — получает случайный анекдот с [official-joke-api.appspot.com](https://official-joke-api.appspot.com/random_joke) и сохраняет его в базу данных
+- **Планировщик задач**: команда настроена для запуска каждые 5 минут через планировщик Laravel
+- **Хранение в базе данных**: анекдоты хранятся в базе данных SQLite с полями типа, сетапа и развязки
+- **Точка API**: доступ ко всем сохранённым анекдотам по адресу `/api/v1/jokes` в формате JSON
+- **Система очередей**: для надежности используется Redis
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Сбор статистики посещений
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Решение задачи, цитируемой из проекта:
+> Написать счетчик посещений страницы. Решение должно состоять из двух
+> компонентов: 
+> -кода на js, который подключается к любому сайту. Скрипт должен собрать
+>  необходимые данные(ip, город, устройство) и отправлять на сервер. 
+> -бэк часть, который хранит данные в БД(sqllite или другой на выбор) и
+>  показывает график посещений по часам(по оси х - количество уникальных
+>  посещений за час, по оси y- время), круговую диаграмму с разбиением по
+>  городам.
 
-## Agentic Development
+**Реализация**:
+- **Скрипт отслеживания посетителей**: JavaScript-библиотека (`visiteurs-register.js`), которую можно встроить на любой сайт для сбора данных о посетителях
+- **Собираемые данные**: IP-адрес, город (через геолокацию), информация об устройстве (ОС, браузер, тип устройства), URL и временная метка
+- **Конфигурация скрипта**: содержит настраиваемые константы:
+  - `SERVER_URL` — адрес сервера для отправки данных
+  - `REGISTRED_USER` — email зарегистрированного пользователя
+  - `API_SERVICE` — сервис определения геолокации по IP
+  - `API_KEY` — API-ключ для сервиса геолокации
+- **Визуализация данных**: интерактивные диаграммы, показывающие:
+  - Количество посещений по часам (горизонтальная столбчатая диаграмма)
+  - Распределение посетителей по городам (круговая диаграмма)
+- **Библиотека диаграмм**: Использует Plotly.js для создания отзывчивых, интерактивных визуализаций
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 3. Динамические формы
 
-```bash
-composer require laravel/boost --dev
+Решение задачи, цитируемой из проекта:
+> Необходимо написать js код, который в зависимости от выбранного значения поля
+> Тип отражает разный набор полей на странице 
+> http://test.amopoint-dev.ru/testzz/testlist.html
+> Должны отображаться только те поля в атрибуте name которых есть
+> значение выбранного элемента списка. 
+> Решение должно представлять из себя файл для подключения к странице,
+> либо сниппет для запуска в браузере в консоли.
 
-php artisan boost:install
+**Реализация**:
+- **Сниппет для консоли**: Предоставляется как автономный JavaScript-код, который можно запустить в консоли браузера на указанном сайте
+- **Демонстрационная форма**: Реализована альтернативная версия с использованием классов вместо атрибутов name, что обеспечивает большую гибкость и соответствует лучшим практикам
+- **Логика**: При выборе типа транспортного средства показываются только соответствующие поля, остальные скрываются
+- **Особенности**: При переключении типа данные в предыдущих специфических полях удаляются, так как считаются неактуальными
+
+## Технологии
+
+### Бэкенд
+
+- **Фреймворк**: Laravel v13.9.0
+- **Язык**: PHP 8.3+
+- **База данных**: SQLite, с ORM Eloquent
+- **HTTP-клиент**: Laravel HTTP Client для запросов к API
+- **Планирование задач**: Встроенный планировщик Laravel
+- **Промежуточное ПО**: Кастомное `EnsureJsonApi` для установки заголовков ответов API
+
+### Фронтенд
+
+- **Шаблонизация**: Laravel Blade
+- **JavaScript**: Vanilla JavaScript и jQuery
+- **Графики**: Plotly.js
+- **Стилизация**: W3.CSS
+
+### Инструменты
+
+- **Управление пакетами**: Composer (PHP)
+- **Окружение**: `.env` файл
+- **Система очередей**: Redis
+
+## Установка
+
+### Предварительные требования
+
+- PHP 8.3+
+- Composer
+- SQLite
+
+### Шаги настройки
+
+1. **Клонируйте репозиторий**:
+   ```bash
+   git clone https://github.com/вашеимяпользователя/ваш-репозиторий.git
+   cd ваш-репозиторий
+   ```
+
+2. **Установите зависимости PHP**:
+   ```bash
+   composer install
+   ```
+
+3. **Создайте файл окружения**:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Сгенерируйте ключ приложения**:
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Выполните миграции базы данных**:
+   ```bash
+   php artisan migrate
+   ```
+
+6. **Заполните тестовыми данными (опционально)**:
+   ```bash
+   php artisan make:test-data
+   ```
+
+7. **Запустите сервер разработки**:
+   ```bash
+   php artisan serve
+   ```
+
+Приложение будет доступно по адресу `http://localhost:8000`.
+
+## Использование
+
+### API Интеграция
+
+1. **Получите анекдоты вручную**:
+   ```bash
+   php artisan fetch:joke
+   ```
+
+2. **Просмотрите анекдоты через API**:
+   Перейдите по адресу `/api/v1/jokes`, чтобы увидеть все сохранённые анекдоты в формате JSON.
+
+3. **Настройте автоматическое получение**:
+   Убедитесь, что планировщик Laravel запущен. Добавьте это в ваш crontab:
+   ```bash
+   * * * * * cd /путь-к-вашему-проекту && php artisan schedule:run >> /dev/null 2>&1
+   ```
+
+### Статистика посетителей
+
+1. **Встройте скрипт отслеживания** на любой сайт:
+   ```html
+   <script src="https://ваш-домен.com/js/visiteurs-register.js"></script>
+   ```
+
+2. **Настройте скрипт**, изменив константы в `visiteurs-register.js`:
+   - `SERVER_URL`: адрес вашего API
+   - `REGISTRED_USER`: email зарегистрированного пользователя
+   - `API_SERVICE`: сервис геолокации
+   - `API_KEY`: ваш API-ключ
+
+3. **Просмотрите статистику**, войдя в систему и перейдя на страницу статистики.
+
+### Динамические формы
+
+Функциональность форм демонстрируется на странице форм. Сниппет JavaScript также доступен для запуска в консоли браузера на внешних сайтах.
+
+## Структура проекта
+
+```
+app/
+├── Console/Commands/           # Команды Artisan
+│   ├── FetchJokeCommand.php      # Получение анекдотов из API
+│   └── MakeTestDataCommand.php   # Генерация тестовых данных
+├── Http/Controllers/
+│   ├── StatisticsController.php  # Страница статистики
+│   └── Api/v1/
+│       ├── JokeController.php    # API для анекдотов
+│       └── VsiteursRegister.php  # API для регистрации посетителей
+├── Models/
+│   ├── Joke.php                  # Модель анекдота
+│   └── Visiteur.php              # Модель посетителя
+└── ...
+
+database/
+├── migrations/                  # Миграции базы данных
+│   ├── create_jokes_table.php
+│   └── create_visiteurs_table.php
+└── ...
+
+public/js/                       # JavaScript файлы
+├── visiteurs-register.js         # Скрипт отслеживания посетителей
+├── plotly-*.js                  # Диаграммы Plotly
+├── form.js                      # Логика форм
+└── ...
+
+resources/views/pages/           # Шаблоны страниц
+├── api-page.blade.php           # Документация API
+├── form.blade.php               # Демонстрация форм
+└── statistics.blade.php         # Визуализация статистики
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Лицензия
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Этот проект с открытым исходным кодом доступен по лицензии MIT.
