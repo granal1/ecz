@@ -57,7 +57,7 @@
                         </form>
                     </div>
 
-                    <p>
+                    <p class="w3-margin w3-center">
                         Демонстрационная учетная запись: user1@mail.local / userdemo
                     </p>
                 </div>
