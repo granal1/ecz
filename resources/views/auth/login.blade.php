@@ -57,6 +57,9 @@
                         </form>
                     </div>
 
+                    <p>
+                        Демонстрационная учетная запись: user1@mail.local / userdemo
+                    </p>
                 </div>
 
             </div>
