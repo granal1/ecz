@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Visiteur;
+use Illuminate\Support\Facades\Auth;
 
 final class StatisticsController extends Controller
 {
@@ -12,7 +13,11 @@ final class StatisticsController extends Controller
         $data = [];
         $barData = [];
         $pieData = [];
-        $data = Visiteur::all(['ip', 'city', 'device', 'timestamp']);
+        $user = Auth::user();
+
+        $data = Visiteur::select(['ip', 'city', 'device', 'timestamp'])
+            ->where('user_id', $user->id)
+            ->get();
 
         // Формирование данных для bar-графика посещений по часам:
         $groupedByHour = $data->groupBy(function ($item) {
