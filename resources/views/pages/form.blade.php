@@ -24,25 +24,30 @@
         <div class="w3-code jsHigh notranslate">
 <pre>
 $(document).ready(function () {
-    const $TypeSelect = $(`select[name^="type_val"]`);
-    const $Feilds = $('input[name^="input_"]');
+  const $TypeSelect = $(`select[name^="type_val"]`);
+  const $Feilds = $('input[name^="input_"]');
 
-    // Обновления видимости
-    function toggleFields() {
-        const selectedType = $TypeSelect.val();
-        $Feilds.each(function () {
-            $(this).attr('name').includes(selectedType) ? $(this).show() : $(this).hide();
-        });
-    }
+  // Обновления видимости
+  function toggleFields() {
+    const selectedType = $TypeSelect.val();
+    $Feilds.each(function () {
+      $(this).attr('name').includes(selectedType) 
+        ? $(this).show() 
+        : $(this).hide();
+    });
+  }
 
-    // при загрузке
-    toggleFields();
+  // при загрузке
+  toggleFields();
 
-    // при изменении
-    $TypeSelect.on('change', toggleFields);
+  // при изменении
+  $TypeSelect.on('change', toggleFields);
 });
 </pre>
         </div>
+        <p>
+            Или можно скачать файл для подключения к странице: <a href="/js/form-toggle-fields.js" download><b>form-toggle-fields.js</b></a>
+        </p>
         <p>Работа сниппета заключается в:
             <ul class="w3-ul">
                 <li>После загрузки страниуы выборе "select" и "input" с "name", согласно шаблона</li>
