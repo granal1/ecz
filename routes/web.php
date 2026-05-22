@@ -7,6 +7,10 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 Auth::routes();
+Route::get('/logout', function () { 
+    Auth::logout(); 
+    return redirect('/'); 
+});
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
 Route::post('/register-user', [RegisterController::class, 'newUser'])->name('register.new-user');
 
