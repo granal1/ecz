@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')->everyMinute();
         
         // Main command to fetch joke
-        $schedule->command('fetch:joke')->everyMinute();
+        $schedule->command('fetch:joke')->everyFiveMinutes();
     }
 
     /**
