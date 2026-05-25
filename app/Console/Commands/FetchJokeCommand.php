@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class FetchJokeCommand extends Command
 {
@@ -33,11 +34,11 @@ class FetchJokeCommand extends Command
 
                 return 0;
             } else {
-                echo "Ошибка: статус " . $response->status() . "\n";
+                Log::channel('console')->error("Ошибка: статус " . $response->status());
                 return 1;
             }
         } catch (\Exception $e) {
-            echo "Exception: " . $e->getMessage() . "\n";
+            Log::channel('console')->error("Exception: " . $e->getMessage());
             return 1;
         }
     }
