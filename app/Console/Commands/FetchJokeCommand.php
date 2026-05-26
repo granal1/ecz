@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Joke;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+
 
 class FetchJokeCommand extends Command
 {
@@ -20,7 +21,7 @@ class FetchJokeCommand extends Command
             if ($response->successful()) {
                 $jokeData = $response->json();
 
-                DB::table('jokes')->updateOrInsert(
+                Joke::updateOrCreate(
                     [
                         'type' => $jokeData['type'],
                         'setup' => $jokeData['setup'],
