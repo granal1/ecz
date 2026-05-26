@@ -33,6 +33,9 @@
             Route, отдающий массив записей таблицы в формате json срабатывает по url:
             <a href="/api/v1/jokes" target="_blank"><b>"/api/v1/jokes"</b></a>
         </p>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow">
+            <p>Добавляются только уникальные записи, у дубликатов обновляется поле 'updated_at'</p>
+        </div>
     </section>
 @endsection
 
