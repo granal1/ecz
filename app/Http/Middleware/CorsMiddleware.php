@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class CorsMiddleware
 {
@@ -13,9 +13,13 @@ class CorsMiddleware
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
+        if ($request->getMethod() === 'OPTIONS') {
+            $response = response()->json();
+        } else {
+            $response = $next($request);
+        }
 
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS');
