@@ -25,9 +25,6 @@ class FetchJokeCommand extends Command
                         'type' => $jokeData['type'],
                         'setup' => $jokeData['setup'],
                         'punchline' => $jokeData['punchline'],
-                    ],
-                    [
-                        'updated_at' => now()
                     ]
                 );
 
