@@ -91,27 +91,32 @@ async function collectAndSend() {
     await sendToServer(payload);
 }
 
-/**
- * Отправляет собранные данные на сервер
- * @param {Object} data - объект с данными (user, site, ip, city, device, timestamp)
- */
-async function sendToServer(data) {
-    try {
-        const response = await fetch(SERVER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        if (!response.ok) {
-            console.error(`Ошибка отправки: ${response.status}`);
-        } else {
-            console.log('Данные успешно отправлены');
-        }
-    } catch (error) {
-        console.error('Сетевая ошибка при отправке:', error);
-    }
+/** 
+ * Отправляет собранные данные на сервер 
+ * @param {Object} data - объект с данными (user, site, ip, city, device, timestamp) 
+ */ 
+async function sendToServer(data) { 
+    try { 
+        const jsonData = JSON.stringify(data);
+
+        // Создание URLSearchParams и добавление JSON-строку как одну из форм
+        const formData = new URLSearchParams();
+        formData.append('json', jsonData); // Пусть ключ, например, 'json'
+
+        const response = await fetch(SERVER_URL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            // Content-Type, который разрешен в no-cors
+            headers: { 
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }, 
+            // Отправка данных как URL-encoded форму
+            body: formData.toString() 
+        }); 
+        console.log('Запрос отправлен (режим no-cors).'); 
+    } catch (error) { 
+        console.error('Сетевая ошибка при отправке:', error); 
+    } 
 }
 
 // Запуск скрипта после полной загрузки страницы (не блокирует рендеринг)
